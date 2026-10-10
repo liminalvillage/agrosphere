@@ -1,0 +1,887 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>AgroSphere SHIFT</title>
+<meta name="description" content="SHIFT, Small Holding Integrated Farming Technologies: one complete set of machines for medium-scale farms and community-supported agriculture, from the first bed to the packed crop tray.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: the page runs like the field. One long bed-by-bed sequence, four phase-coloured
+   machine chapters in working order (bed, plant, protect, crop), square catalogue plates, no rounding. */
+:root {
+  --bg: #f6f5ef;          /* catalogue paper */
+  --surface: #ffffff;     /* plate behind photographs */
+  --ink: #17231a;         /* green-black text */
+  --muted: #5b665d;
+  --line: #d9d8cc;
+  --brand: #1f4d2b;       /* SHIFT green */
+  --bed: #a95a12;         /* field preparation */
+  --plant: #2c6a38;       /* planting */
+  --protect: #2d5878;     /* protection */
+  --crop: #8c3a22;        /* harvest */
+  --platform: #3b4248;    /* shared platform */
+  --on-phase: #ffffff;
+  --cta-bg: #1f4d2b;
+  --cta-fg: #f4f3ec;
+  --cta-line: #4c7556;
+  --logo-l: block; --logo-d: none;
+
+  --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+  --body: "Archivo", "Helvetica Neue", Arial, sans-serif;
+  --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --gutter: clamp(16px, 4vw, 48px);
+  --section: clamp(3.5rem, 8vw, 7rem);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #101710; --surface: #19221a; --ink: #eceadf; --muted: #a3ad9f; --line: #2f3b30;
+    --brand: #86c792; --bed: #e39a4f; --plant: #7cc48a; --protect: #8ab8da; --crop: #e38e70; --platform: #aeb7bd;
+    --on-phase: #101710; --cta-bg: #173a21; --cta-fg: #f4f3ec; --cta-line: #3f6549; --logo-l: none; --logo-d: block;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #101710; --surface: #19221a; --ink: #eceadf; --muted: #a3ad9f; --line: #2f3b30;
+  --brand: #86c792; --bed: #e39a4f; --plant: #7cc48a; --protect: #8ab8da; --crop: #e38e70; --platform: #aeb7bd;
+  --on-phase: #101710; --cta-bg: #173a21; --cta-fg: #f4f3ec; --cta-line: #3f6549; --logo-l: none; --logo-d: block;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+body {
+  margin: 0; background: var(--bg); color: var(--ink);
+  font: 400 1.0625rem/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--protect); outline-offset: 3px; }
+h1, h2, h3, h4, p, figure, dl, dd, ol, ul { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+
+.wrap { max-width: 1240px; margin-inline: auto; padding-inline: var(--gutter); }
+
+/* type */
+.display { font-family: var(--display); font-stretch: 68%; font-weight: 850; text-transform: uppercase; line-height: .92; letter-spacing: -.005em; text-wrap: balance; }
+h2.display { font-size: clamp(2.6rem, 7.2vw, 5.25rem); }
+h3.display { font-size: clamp(1.7rem, 3.6vw, 2.5rem); line-height: 1; }
+h4 { font-family: var(--display); font-stretch: 75%; font-weight: 800; font-size: 1.2rem; text-transform: uppercase; letter-spacing: .01em; line-height: 1.15; }
+.label { font: 500 .72rem/1.3 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--phase, var(--muted)); }
+.lede { font-size: clamp(1.1rem, 1.7vw, 1.3rem); line-height: 1.5; max-width: 62ch; }
+.prose { max-width: 62ch; display: grid; gap: 1em; }
+.muted { color: var(--muted); }
+
+/* header */
+.site-head { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); border-bottom: 1px solid var(--line); }
+.site-head .wrap { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; column-gap: 2rem; }
+.brand { font-family: var(--display); font-stretch: 75%; font-weight: 850; font-size: 1.05rem; letter-spacing: .04em; text-decoration: none; padding-block: .9rem; white-space: nowrap; }
+.brand b { color: var(--brand); font-weight: inherit; }
+.site-nav { overflow-x: auto; max-width: 100%; scrollbar-width: none; }
+.site-nav::-webkit-scrollbar { display: none; }
+.site-nav ul { display: flex; gap: clamp(1rem, 2.2vw, 1.75rem); }
+.site-nav a { display: block; padding-block: .9rem; font: 500 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; text-decoration: none; color: var(--muted); white-space: nowrap; border-bottom: 2px solid transparent; }
+.site-nav a:hover, .site-nav a[aria-current="true"] { color: var(--ink); border-bottom-color: var(--brand); }
+
+/* hero */
+.hero { padding-block: clamp(2rem, 5vw, 4rem) 0; }
+.hero-top { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: end; gap: clamp(1.25rem, 4vw, 3.5rem); }
+.wordmark { font-family: var(--display); font-stretch: 62%; font-weight: 900; font-size: clamp(6.5rem, 25vw, 19rem); line-height: .78; letter-spacing: -.02em; color: var(--brand); margin-left: -.04em; }
+.hero-copy { display: grid; gap: 1rem; padding-bottom: .5rem; min-width: 0; }
+.hero-copy .expansion { font-family: var(--display); font-stretch: 70%; font-weight: 800; font-size: clamp(1.35rem, 2.6vw, 2.1rem); text-transform: uppercase; line-height: 1.02; max-width: 14ch; }
+.hero-copy p { max-width: 44ch; }
+.hero-photo { margin-top: clamp(1.5rem, 4vw, 3rem); }
+.hero-photo img { width: 100%; aspect-ratio: 5 / 2; object-fit: cover; }
+.phases { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.phases a { background: var(--phase); color: var(--on-phase); text-decoration: none; padding: 1rem clamp(.75rem, 2vw, 1.5rem); display: grid; gap: .2rem; }
+.phases a span { font: 500 .68rem/1.2 var(--mono); letter-spacing: .14em; opacity: .85; }
+.phases a strong { font-family: var(--display); font-stretch: 68%; font-weight: 850; font-size: clamp(1.3rem, 2.6vw, 2rem); text-transform: uppercase; line-height: 1; }
+.phases a:hover strong { text-decoration: underline; text-underline-offset: .15em; text-decoration-thickness: 2px; }
+
+.p-bed { --phase: var(--bed); } .p-plant { --phase: var(--plant); } .p-protect { --phase: var(--protect); }
+.p-crop { --phase: var(--crop); } .p-platform { --phase: var(--platform); }
+
+/* sections */
+section { padding-block: var(--section); scroll-margin-top: 3.5rem; }
+.section-head { display: grid; gap: 1.1rem; margin-bottom: clamp(1.75rem, 4vw, 3rem); }
+.tag { justify-self: start; background: var(--phase); color: var(--on-phase); font: 500 .7rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; padding: .55rem .8rem; }
+.chapter { border-top: 6px solid var(--phase); }
+.sub { margin-top: clamp(3rem, 6vw, 5rem); padding-top: clamp(1.75rem, 3vw, 2.5rem); border-top: 1px solid var(--line); }
+.sub > .label { display: block; margin-bottom: .75rem; }
+.sub > h3 { margin-bottom: 1.5rem; }
+
+.cols { display: grid; gap: clamp(1.5rem, 4vw, 3.5rem); grid-template-columns: repeat(12, minmax(0, 1fr)); align-items: start; }
+.cols > * { min-width: 0; grid-column: span 12; }
+@media (min-width: 820px) {
+  .c4 { grid-column: span 4; } .c5 { grid-column: span 5; } .c6 { grid-column: span 6; }
+  .c7 { grid-column: span 7; } .c8 { grid-column: span 8; }
+}
+.stack { display: grid; gap: 1.25rem; align-content: start; }
+.stack-lg { display: grid; gap: clamp(1.5rem, 3vw, 2.5rem); align-content: start; }
+
+/* plates */
+.plate { background: var(--surface); border: 1px solid var(--line); padding: 8px; }
+.plate img { width: 100%; }
+.plate figcaption { font: 400 .72rem/1.4 var(--mono); color: var(--muted); padding: .7rem .35rem .3rem; }
+.trio { display: grid; gap: clamp(1rem, 2vw, 1.5rem); grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); align-items: start; }
+
+/* stats */
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(1rem, 3vw, 2.5rem); margin-top: clamp(2rem, 4vw, 3rem); }
+.stats div { border-top: 2px solid var(--brand); padding-top: .8rem; display: grid; gap: .4rem; align-content: start; }
+.stats dt { order: 2; font-size: .9rem; line-height: 1.35; color: var(--muted); }
+.stats dd { font-family: var(--display); font-stretch: 68%; font-weight: 850; font-size: clamp(2rem, 4.6vw, 3.5rem); line-height: 1; color: var(--brand); font-variant-numeric: tabular-nums; }
+@media (max-width: 640px) { .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* field steps */
+.steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: clamp(1rem, 2vw, 1.5rem); }
+.steps a { text-decoration: none; display: grid; gap: .8rem; align-content: start; border-top: 4px solid var(--phase); padding-top: .9rem; }
+.steps img { width: 100%; aspect-ratio: 3 / 2; object-fit: cover; }
+.steps .n { font: 500 .72rem/1 var(--mono); letter-spacing: .14em; color: var(--phase); }
+.steps strong { font-family: var(--display); font-stretch: 68%; font-weight: 850; font-size: 1.9rem; text-transform: uppercase; line-height: 1; }
+.steps a:hover strong { color: var(--phase); }
+.steps p { font-size: .95rem; line-height: 1.45; color: var(--muted); }
+
+/* sequence boards */
+.boards { display: flex; flex-wrap: wrap; gap: 1.5rem 2rem; }
+.board { display: grid; justify-items: center; gap: 0; width: 11.5rem; }
+.board .face { width: 100%; background: var(--cta-bg); color: var(--cta-fg); font: 500 2.5rem/1 var(--mono); font-variant-numeric: tabular-nums; text-align: center; padding: 1.1rem .5rem; border: 3px solid var(--cta-fg); outline: 1px solid var(--line); }
+.board .post { width: 8px; height: 2.25rem; background: var(--muted); }
+.board p { font-size: .9rem; line-height: 1.4; text-align: center; padding-top: .6rem; border-top: 1px solid var(--line); width: 100%; }
+
+/* lists and specs */
+.ops { counter-reset: op; display: grid; grid-template-columns: repeat(auto-fit, minmax(270px, 1fr)); column-gap: 2.5rem; }
+.ops li { counter-increment: op; display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); padding-block: .7rem; border-bottom: 1px solid var(--line); line-height: 1.4; }
+.ops li::before { content: counter(op, decimal-leading-zero); font: 500 .78rem/1.7 var(--mono); color: var(--phase); }
+.ticks li { padding: .7rem 0 .7rem 1.4rem; border-bottom: 1px solid var(--line); position: relative; line-height: 1.4; }
+.ticks li::before { content: ""; position: absolute; left: 0; top: 1.15rem; width: .6rem; height: .6rem; background: var(--phase); }
+.spec { border-top: 2px solid var(--phase, var(--brand)); }
+.spec div { display: flex; justify-content: space-between; align-items: baseline; gap: 1.5rem; padding-block: .6rem; border-bottom: 1px solid var(--line); }
+.spec dt { font-size: .95rem; color: var(--muted); }
+.spec dd { font: 500 .9rem/1.4 var(--mono); text-align: right; font-variant-numeric: tabular-nums; }
+.legend { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); column-gap: 2.5rem; }
+.legend div { display: grid; grid-template-columns: 2rem minmax(0, 1fr); padding-block: .7rem; border-bottom: 1px solid var(--line); line-height: 1.4; font-size: .97rem; }
+.legend dt { font: 500 .85rem/1.6 var(--mono); color: var(--phase); }
+
+/* tunnel scale drawing */
+.scale { background: var(--surface); border: 1px solid var(--line); padding: 1rem; }
+.scale svg { display: block; width: 100%; height: auto; }
+.scale .hoop { fill: none; stroke: var(--protect); stroke-width: 3; }
+.scale .ground { fill: none; stroke: var(--ink); stroke-width: 1.5; }
+.scale .dim { fill: none; stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
+.scale text { font: 500 11px var(--mono); fill: var(--ink); }
+.scale text.m { fill: var(--muted); }
+
+/* gear train */
+.train { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0; border: 1px solid var(--line); background: var(--surface); }
+.train li { padding: 1.1rem 1.1rem 1.2rem; display: grid; gap: .35rem; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 0 -1px -1px 0; }
+.train .v { font-family: var(--display); font-stretch: 68%; font-weight: 850; font-size: clamp(1.9rem, 3.4vw, 2.6rem); line-height: 1; font-variant-numeric: tabular-nums; }
+.train .v small { font: 500 .72rem var(--mono); letter-spacing: .08em; color: var(--muted); margin-left: .3rem; }
+.train .k { font-size: .88rem; color: var(--muted); line-height: 1.3; }
+
+/* holons */
+.holons-logo img { width: min(100%, 30rem); }
+.holons-logo .l { display: var(--logo-l); }
+.holons-logo .d { display: var(--logo-d); }
+.map-notes { margin-top: clamp(2rem, 4vw, 3rem); }
+.map-how { margin: clamp(2.5rem, 5vw, 4rem) 0 1.5rem; }
+.hexmap { background: var(--surface); border: 1px solid var(--line); padding: 1rem 1rem .5rem; }
+.hexmap svg { display: block; width: 100%; height: auto; max-width: 26rem; margin-inline: auto; }
+.hexmap .region { fill: none; stroke: var(--ink); stroke-width: 2; }
+.hexmap .village { fill: var(--bg); stroke: var(--muted); stroke-width: 1.5; }
+.hexmap .village.on { fill: var(--brand); fill-opacity: .14; stroke: var(--brand); stroke-width: 2; }
+.hexmap .home { fill: var(--surface); stroke: var(--brand); stroke-width: 1.25; }
+.hexmap .home.on { fill: var(--brand); }
+.hexmap figcaption { font: 400 .72rem/1.5 var(--mono); color: var(--muted); padding: .7rem 0 .4rem; border-top: 1px solid var(--line); margin-top: .75rem; }
+.pillars { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: clamp(1.25rem, 3vw, 2.5rem); }
+.pillars > div { border-top: 4px solid var(--brand); padding-top: 1rem; display: grid; gap: .7rem; align-content: start; }
+.pillars .in { font-size: .95rem; color: var(--muted); border-top: 1px solid var(--line); padding-top: .7rem; }
+.pillars .in b { display: block; font: 500 .68rem/1.3 var(--mono); letter-spacing: .14em; text-transform: uppercase; margin-bottom: .3rem; }
+.links { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: clamp(1.5rem, 3vw, 2.5rem) clamp(1.5rem, 4vw, 3.5rem); }
+.links > div { display: grid; gap: .6rem; align-content: start; border-top: 1px solid var(--line); padding-top: 1rem; }
+
+/* contact */
+.contact { background: var(--cta-bg); color: var(--cta-fg); padding-block: var(--section); }
+.contact .wordmark { color: var(--cta-fg); font-size: clamp(5rem, 16vw, 11rem); }
+.contact .expansion { font-family: var(--display); font-stretch: 70%; font-weight: 800; text-transform: uppercase; font-size: clamp(1.1rem, 2vw, 1.5rem); margin-top: 1rem; }
+.contact .lede { margin-top: 1.25rem; }
+.details { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem 2.5rem; margin-top: clamp(2.5rem, 6vw, 4.5rem); padding-top: 1.5rem; border-top: 1px solid var(--cta-line); }
+.details dt { font: 500 .7rem/1.3 var(--mono); letter-spacing: .14em; text-transform: uppercase; opacity: .7; margin-bottom: .35rem; }
+.details dd { font-size: 1.05rem; user-select: all; overflow-wrap: anywhere; }
+.fine { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .5rem 2rem; margin-top: clamp(2.5rem, 5vw, 4rem); font: 400 .72rem/1.5 var(--mono); opacity: .75; }
+
+@media (max-width: 720px) {
+  .hero-top { grid-template-columns: minmax(0, 1fr); }
+  .phases { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .site-nav { width: 100%; margin-top: -.5rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="#top">AGROSPHERE <b>SHIFT</b></a>
+    <nav class="site-nav" aria-label="Sections">
+      <ul>
+        <li><a href="#system">System</a></li>
+        <li><a href="#bedder">Bedder</a></li>
+        <li><a href="#transplanter">Transplanter</a></li>
+        <li><a href="#tunneler">Tunneler</a></li>
+        <li><a href="#cropper">Cropper</a></li>
+        <li><a href="#reuse">Reuse</a></li>
+        <li><a href="#platform">Platform</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<div class="hero">
+  <div class="wrap">
+    <div class="hero-top">
+      <h1 class="wordmark">SHIFT</h1>
+      <div class="hero-copy">
+        <p class="expansion">Small Holding Integrated Farming Technologies</p>
+        <p>One complete set of machines for medium-scale farms and community-supported agriculture: from the first bed to the packed crop tray.</p>
+      </div>
+    </div>
+    <div class="hero-photo">
+      <img src="images/hero-field.jpg" width="1600" height="640" alt="Aerial view of a SHIFT field: parallel numbered beds, some under white shade-net tunnels, with clear headlands at each end.">
+      <nav class="phases" aria-label="The four field machines">
+        <a class="p-bed" href="#bedder"><span>01 · BEDDER</span><strong>Bed</strong></a>
+        <a class="p-plant" href="#transplanter"><span>02 · TRANSPLANTER</span><strong>Plant</strong></a>
+        <a class="p-protect" href="#tunneler"><span>03 · TUNNELER</span><strong>Protect</strong></a>
+        <a class="p-crop" href="#cropper"><span>04 · CROPPER</span><strong>Crop</strong></a>
+      </nav>
+    </div>
+  </div>
+</div>
+
+<section id="system">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">Introduction</p>
+      <h2 class="display">One system,<br>bed to crate</h2>
+      <p class="lede">Most farm equipment is sold one tool at a time, and the grower is left to make the pieces fit. SHIFT works the other way round: the beds, tunnels, trays and machines are designed together, so each machine picks up exactly where the last one stopped.</p>
+    </div>
+
+    <dl class="stats">
+      <div><dt>operations in one pass of the Bedder</dt><dd>12</dd></div>
+      <div><dt>seedlings per hour, Transplanter capacity</dt><dd>3,600</dd></div>
+      <div><dt>metre tunnels, installed mechanically</dt><dd>2×1 · 4×2</dd></div>
+      <div><dt>shared powertrain across the machines</dt><dd>1</dd></div>
+    </dl>
+
+    <div class="sub">
+      <span class="label">Why SHIFT</span>
+      <h3 class="display">Machinery built for organic farming</h3>
+      <div class="cols">
+        <p class="lede c7">Organic growers have lacked machinery made for the way they farm. AgroSphere Technologies develops high-efficiency tools so that sustainable food production can compete on price with conventional supermarket produce.</p>
+        <p class="muted c5">For small farmers that means better labour efficiency and a path to financial sustainability, with equipment that is shared rather than bought farm by farm.</p>
+      </div>
+    </div>
+
+    <div class="sub">
+      <span class="label">How it works</span>
+      <div class="cols">
+        <div class="prose c7">
+          <p>Four field machines, the Bedder, Transplanter, Tunneler and Cropper, run on one patented powertrain and follow the bed edge with the same pilot guide. Beds are laid out to a fixed sequence in 50 m or 100 m lengths, so the operator always knows which row comes next.</p>
+          <p>Around the field machines sits a set of support equipment for drip tape, shade nets and harvest logistics. Drip tape and shade nets are wound, cleaned and reused season after season instead of being thrown away.</p>
+          <p>SHIFT is built for medium-scale farming and community-supported agriculture: enough mechanisation to farm a hectare well, without needing a tractor fleet.</p>
+        </div>
+        <div class="stack c5">
+          <h4>Reading the field boards</h4>
+          <div class="boards">
+            <div class="board"><div class="face">11-16</div><div class="post"></div><p>You are in row 11. Turn right into row 16.</p></div>
+            <div class="board"><div class="face">16-13</div><div class="post"></div><p>Leaving row 16. Turn left into row 13.</p></div>
+          </div>
+          <p class="muted" style="font-size:.95rem">Boards at each end of the field tell the driver where he is and where to go next. A full drip tape roll waiting in each bed's pipe protector confirms the next bed has not yet been prepared.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <span class="label">The SHIFT field</span>
+      <h3 class="display">Four machines that behave as one</h3>
+      <p class="lede" style="margin-bottom:2rem">Every SHIFT farm is laid out the same way: numbered beds of 50 m or 100 m, worked in a fixed order.</p>
+      <div class="steps">
+        <a class="p-bed" href="#bedder"><span class="n">01</span><img loading="lazy" src="images/bedder.jpg" width="1600" height="687" alt=""><strong>Bed</strong><p>Prepares the raised bed, lays drip tape and mulch.</p></a>
+        <a class="p-plant" href="#transplanter"><span class="n">02</span><img loading="lazy" src="images/transplanter.jpg" width="1536" height="1024" alt=""><strong>Plant</strong><p>Plants seedlings at the spacing set by the template.</p></a>
+        <a class="p-protect" href="#tunneler"><span class="n">03</span><img loading="lazy" src="images/tunneler.jpg" width="1600" height="800" alt=""><strong>Protect</strong><p>Installs Jr and Sr shade-net tunnels over the bed.</p></a>
+        <a class="p-crop" href="#cropper"><span class="n">04</span><img loading="lazy" src="images/cropper.jpg" width="1600" height="640" alt=""><strong>Crop</strong><p>Crops the stems and packs produce into crop trays.</p></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="bedder" class="chapter p-bed">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="tag">Field preparation · Machine 01</p>
+      <h2 class="display">SHIFT Bedder</h2>
+      <p class="lede">Drip-irrigated, raised, mulched beds in a single pass. Twelve operations that usually need several implements and several trips are combined in one machine.</p>
+      <p class="prose muted">The uniform beds it leaves serve as rails for the machines that follow. Every later pass, from planting to harvest, runs to the same line.</p>
+    </div>
+    <figure class="plate">
+      <img loading="lazy" src="images/bedder.jpg" width="1600" height="687" alt="The Bedder drawn behind a tractor, forming a raised bed and laying black mulch while an operator rides behind it.">
+      <figcaption>Bedder in operation · side view</figcaption>
+    </figure>
+    <div class="sub">
+      <h3 class="display">12 operations, one pass</h3>
+      <ol class="ops">
+        <li>Pre-prepares the old bed</li>
+        <li>Clears a new path and scrapes everything to the centre of the bed</li>
+        <li>Rotovates</li>
+        <li>Aerates</li>
+        <li>Shreds old roots and loosens clods</li>
+        <li>Mixes in the seasonal fertigation application</li>
+        <li>Gently forms the soil into a soft, accurate bed</li>
+        <li>Cuts a groove beside the bed for burying the mulch</li>
+        <li>Lays a prefabricated drip tape harness</li>
+        <li>Wraps the mulch over the bed, tucks it into the groove, refills and compacts</li>
+        <li>Carries the operator on a chariot to watch every operation</li>
+        <li>Adjusts to compensate for any soil texture</li>
+      </ol>
+    </div>
+
+    <div class="sub">
+      <span class="label">Field preparation · Irrigation</span>
+      <h3 class="display">Drip irrigation</h3>
+      <div class="cols">
+        <div class="stack-lg c7">
+          <p class="lede">Every bed is drip-fed. The tape arrives on a trolley, snaps onto the feeder at the head of the bed and is wound back up at the end of the season.</p>
+          <figure class="plate">
+            <img loading="lazy" src="images/drip-trolley.jpg" width="1536" height="1024" alt="A green trolley carrying a rack of black drip tape rolls, pulled by hand across a yard.">
+            <figcaption>Drip Tape Trolley</figcaption>
+          </figure>
+          <div class="stack">
+            <h4>Drip tape trolley</h4>
+            <dl class="spec">
+              <div><dt>Capacity</dt><dd>32 rolls</dd></div>
+              <div><dt>Bed length</dt><dd>50 or 100 m</dd></div>
+              <div><dt>Towing</dt><dd>vehicle or tractor</dd></div>
+            </dl>
+            <p class="muted">Every component needed to install drip irrigation, on hand at the bed.</p>
+          </div>
+        </div>
+        <div class="stack-lg c5">
+          <div class="stack">
+            <h4>Snap-on harness</h4>
+            <div class="prose">
+              <p>A drip tape harness with water regulator that snaps on to the feeder, ending leaks and saving hundreds of hours a season.</p>
+              <p>Switch-over by remote solenoid, or automatically by moisture gauge set between 20 % and 35 %. A metal pipe protector holds the feeder hose and the drip tape roll.</p>
+            </div>
+          </div>
+          <div class="trio" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+            <figure class="plate">
+              <img loading="lazy" src="images/drip-harness.jpg" width="1055" height="1491" alt="A galvanised pipe protector at the head of a bed with the feeder valve and drip tape running down the row.">
+              <figcaption>Harness, pipe protector and feeder</figcaption>
+            </figure>
+            <figure class="plate">
+              <img loading="lazy" src="images/irrigation-fittings.jpg" width="1024" height="1536" alt="Irrigation couplings, clamps, valves and hose tails laid out on a white surface.">
+              <figcaption>Irrigation fittings</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="transplanter" class="chapter p-plant">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="tag">Planting · Machine 02</p>
+      <h2 class="display">SHIFT Transplanter</h2>
+      <p class="lede">A stop-and-go planting platform for a crew of three. Seedlings are loaded into plant modules and set into the bed at every station, at the spacing the grower chooses.</p>
+    </div>
+    <div class="cols">
+      <div class="stack c7">
+        <figure class="plate">
+          <img loading="lazy" src="images/transplanter.jpg" width="1536" height="1024" alt="The Transplanter on a mulched bed: two seated planters and a loader under a canopy, with racks of seedlings behind them.">
+          <figcaption>Transplanter · seedling racks, planting crew and powertrain</figcaption>
+        </figure>
+        <p class="muted">Two seated planters and one loader. The machine drives itself between stations and follows the bed edge on the pilot guide.</p>
+      </div>
+      <div class="stack-lg c5">
+        <div class="stack">
+          <h4>Performance</h4>
+          <dl class="spec">
+            <div><dt>Capacity</dt><dd>up to 3,600 seedlings/h</dd></div>
+            <div><dt>Station to station</dt><dd>1.02 m</dd></div>
+            <div><dt>Travel speed</dt><dd>8.62 m/min</dd></div>
+            <div><dt>Plant time per station</dt><dd>10.0 s</dd></div>
+            <div><dt>Station-to-station cycle</dt><dd>17.07 s</dd></div>
+            <div><dt>Reverse speed</dt><dd>17.24 m/min</dd></div>
+          </dl>
+        </div>
+        <div class="stack">
+          <h4>A day in the field</h4>
+          <dl class="spec">
+            <div><dt>Bed time</dt><dd>14.22 min</dd></div>
+            <div><dt>Manoeuvring time</dt><dd>8.0 min</dd></div>
+            <div><dt>Bed-to-bed cycle</dt><dd>22.22 min</dd></div>
+            <div><dt>Beds per 8-hour day</dt><dd>21.6</dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <span class="label">Planting · Modules &amp; templates</span>
+      <h3 class="display">Planting modules &amp; templates</h3>
+      <div class="cols">
+        <figure class="plate c5">
+          <img loading="lazy" src="images/planting-station.jpg" width="1122" height="1402" alt="Plant modules dropping through a punched template and setting seedlings into holes in the mulch.">
+          <figcaption>Template, magazine and plant module over the bed</figcaption>
+        </figure>
+        <div class="stack-lg c7">
+          <div class="stack">
+            <h4>The planting cycle</h4>
+            <p>Seedlings sit in a magazine above a punched template. At each station the plant modules drop through the template, open and set the seedling into the soil, then lift and reload.</p>
+            <ol class="ops" style="grid-template-columns:minmax(0,1fr)">
+              <li><span><strong>Stop</strong> at station 1 and lower the module</span></li>
+              <li><span><strong>Release</strong> and plant</span></li>
+              <li><span><strong>Secure</strong> and reload from the magazine</span></li>
+              <li><span><strong>Go</strong> to station 2</span></li>
+            </ol>
+          </div>
+          <div class="stack">
+            <h4>Your spacing, your template</h4>
+            <p>Templates are cut from 1600 × 1000 mm virgin plastic sheets. Each set comes with a punch and slide punch, so the grower marks out the plant spacing for each crop.</p>
+          </div>
+          <div class="trio" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))">
+            <figure class="plate">
+              <img loading="lazy" src="images/template-punch.jpg" width="1536" height="1024" alt="A stack of black punched template sheets beside an aluminium punch and slide punch.">
+              <figcaption>Template sheets, punch and slide punch</figcaption>
+            </figure>
+            <figure class="plate">
+              <img loading="lazy" src="images/plant-modules.jpg" width="1536" height="1024" alt="Two stainless and white PVC modules above a template, one holding a seedling.">
+              <figcaption>Pierce module and plant module, PVC spin-formed</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tunneler" class="chapter p-protect">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="tag">Protection · Machine 03</p>
+      <h2 class="display">SHIFT Tunneler</h2>
+      <p class="lede">Shade-net tunnels put up and taken down by machine. Two sizes cover everything from low crops to trellised plants.</p>
+    </div>
+    <figure class="plate">
+      <img loading="lazy" src="images/tunneler.jpg" width="1600" height="800" alt="The Tunneler straddling a bed, feeding white shade net from overhead rolls onto blue hoops while two crew members guide it.">
+      <figcaption>Tunneler · shade net conveyor and installation platform</figcaption>
+    </figure>
+    <div class="cols" style="margin-top:clamp(2rem,4vw,3rem)">
+      <div class="stack c7">
+        <h4>Features</h4>
+        <ul class="ticks">
+          <li>Installs Jr 2 × 1 m and Sr 4 × 2 m tunnels mechanically</li>
+          <li>Hand-fed mechanisation: the crew feeds hoops and nets, the machine places them</li>
+          <li>Chain-driven conveyance of the shade net rolls</li>
+          <li>Shade net conveyor, manual or motorised</li>
+          <li>Spring-loaded hydraulic planting of the hoop pegs</li>
+        </ul>
+      </div>
+      <div class="stack c5">
+        <h4>Tunnel sizes</h4>
+        <div class="scale">
+          <svg viewBox="0 0 420 168" role="img" aria-label="Jr tunnel, 2 metres wide and 1 metre high, drawn to scale beside the Sr tunnel, 4 metres wide and 2 metres high.">
+            <line class="ground" x1="10" y1="126" x2="410" y2="126"/>
+            <path class="hoop" d="M30 126 A50 50 0 0 1 130 126"/>
+            <line class="dim" x1="80" y1="126" x2="80" y2="76"/>
+            <text x="86" y="106" class="m">1 m</text>
+            <text x="80" y="146" text-anchor="middle">2 m</text>
+            <text x="80" y="162" text-anchor="middle" class="m">JR</text>
+            <path class="hoop" d="M190 126 A100 100 0 0 1 390 126"/>
+            <line class="dim" x1="290" y1="126" x2="290" y2="26"/>
+            <text x="296" y="82" class="m">2 m</text>
+            <text x="290" y="146" text-anchor="middle">4 m</text>
+            <text x="290" y="162" text-anchor="middle" class="m">SR</text>
+          </svg>
+        </div>
+        <dl class="spec">
+          <div><dt>Jr tunnel</dt><dd>2 × 1 m</dd></div>
+          <div><dt>Sr tunnel</dt><dd>4 × 2 m</dd></div>
+          <div><dt>Jr shade net width</dt><dd>3 m</dd></div>
+          <div><dt>Sr shade net width</dt><dd>6 m</dd></div>
+        </dl>
+      </div>
+    </div>
+
+    <div class="sub">
+      <span class="label">Protection · Tunnel system</span>
+      <h3 class="display">Tunnel system</h3>
+      <figure class="plate">
+        <img loading="lazy" src="images/tunnel-fittings.jpg" width="1600" height="640" alt="Eight lettered photographs, A to H, showing the Sr and Jr tunnels and their fittings.">
+        <figcaption>Jr 2 × 1 m tunnel and Sr 4 × 2 m tunnel, with fittings A to H</figcaption>
+      </figure>
+      <dl class="legend" style="margin-top:1.5rem">
+        <div><dt>A</dt><dd>Sr tunnel: 2 lockable shade net sliders and 2 main stabiliser wire ropes, also used for trellising</dd></div>
+        <div><dt>B</dt><dd>Jr tunnel: 2 lockable shade net sliders and 1 main stabiliser wire rope, also used for trellising</dd></div>
+        <div><dt>C</dt><dd>Ratchet jack for extracting the hoop pegs</dd></div>
+        <div><dt>D</dt><dd>Hoop pegs planted hydraulically from the Tunneler</dd></div>
+        <div><dt>E</dt><dd>Shade net slider, runs up to the main stabiliser wire ropes</dd></div>
+        <div><dt>F</dt><dd>Lower wire ropes threaded permanently through the shade net eyes</dd></div>
+        <div><dt>G</dt><dd>Drilling and tapping jig for the hoop pegs</dd></div>
+        <div><dt>H</dt><dd>Ferrules crimped to the stabiliser rope, twisted between two plates to secure the hoop</dd></div>
+      </dl>
+      <div class="cols" style="margin-top:clamp(2rem,4vw,3rem)">
+        <div class="stack c6">
+          <figure class="plate">
+            <img loading="lazy" src="images/hoop-collector.jpg" width="1536" height="1024" alt="A wheeled rack stacked with blue tunnel hoops beside a row of hoops set over a bed.">
+            <figcaption>Tunnel Hoop Collector</figcaption>
+          </figure>
+          <h4>Tunnel hoop collector</h4>
+          <p>Collects and carries hoops between beds. Manual or motorised, with extractor ratchet jack and lever bar; the motorised version can take a hydraulic peg lifter. Hoop capacity follows the length ordered.</p>
+        </div>
+        <div class="stack c6">
+          <figure class="plate">
+            <img loading="lazy" src="images/cable-tensioner.jpg" width="1536" height="1024" alt="A hand-cranked winch with a spool of wire rope, mounted on a workbench.">
+            <figcaption>Tunnel Anchor Cable Tensioner</figcaption>
+          </figure>
+          <h4>Tunnel anchor cable tensioner</h4>
+          <p>Winds and holds the tunnel anchor cable at tension, by hand crank.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="cropper" class="chapter p-crop">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="tag">Harvest · Machine 04</p>
+      <h2 class="display">SHIFT Cropper</h2>
+      <p class="lede">Stem cropping whatever the stem size or toughness. The Cropper cuts the crop and packs it straight into SHIFT crop trays, ready to leave the field.</p>
+    </div>
+    <figure class="plate">
+      <img loading="lazy" src="images/cropper.jpg" width="1600" height="640" alt="The Cropper working through a cabbage bed, two crew packing heads into trays on the machine's rack.">
+      <figcaption>Cropper · cutting heads, tray rack and packing crew</figcaption>
+    </figure>
+    <div class="cols" style="margin-top:clamp(2rem,4vw,3rem)">
+      <figure class="plate c8">
+        <img loading="lazy" src="images/tray-trolley.jpg" width="1600" height="600" alt="Two crop tray trolleys hitched in a train, stacked with trays of cabbages, pulled along a field track.">
+        <figcaption>Crop Tray Trolley</figcaption>
+      </figure>
+      <div class="stack c4">
+        <h4>Crop tray trolley</h4>
+        <p>Trolleys hitch together into a train. They carry the harvest to the packing station, unload, and bring empty trays straight back to the Cropper.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="reuse" class="chapter" style="--phase:var(--brand)">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="label">Support equipment</p>
+      <h2 class="display">Wound, cleaned,<br>reused</h2>
+      <p class="lede">Drip tape and shade nets are the consumables of bed farming. SHIFT winds them back up at the end of the season so they go out again the next.</p>
+    </div>
+
+    <div class="p-bed">
+      <span class="label">Field preparation · Reuse</span>
+      <h3 class="display" style="margin:.75rem 0 1.5rem">Drip tape winder</h3>
+      <div class="cols">
+        <div class="stack c7">
+          <p class="lede">Fast, precise winding means drip tape is reused rather than thrown away: a minimum of ten seasons from every roll.</p>
+          <figure class="plate">
+            <img loading="lazy" src="images/drip-winder.jpg" width="1536" height="1024" alt="A wheeled winder with six drip tape spools under a solar panel roof, an operator at the controls.">
+            <figcaption>Automated and manual drives · weather-protected, solar-powered frame</figcaption>
+          </figure>
+        </div>
+        <div class="stack-lg c5">
+          <div class="stack">
+            <h4>Specification</h4>
+            <dl class="spec">
+              <div><dt>Winding speed</dt><dd>300 m/min</dd></div>
+              <div><dt>Standard roll</dt><dd>6 rolls, 50 or 100 m</dd></div>
+              <div><dt>Tape life</dt><dd>10+ seasons</dd></div>
+              <div><dt>Drive</dt><dd>automated or manual</dd></div>
+              <div><dt>Power</dt><dd>solar</dd></div>
+              <div><dt>Housing</dt><dd>weather protected</dd></div>
+            </dl>
+          </div>
+          <div class="stack">
+            <figure class="plate">
+              <img loading="lazy" src="images/winder-screw.jpg" width="1600" height="800" alt="Close view of a self-reversing screw shaft with brass followers on a green frame.">
+              <figcaption>Self-reversing screw T250</figcaption>
+            </figure>
+            <p class="muted">The T250 self-reversing screw traverses the tape across the spool, so it is laid evenly onto the SHIFT standard spool.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub p-protect">
+      <span class="label">Protection · Shade net care</span>
+      <h3 class="display">Shade net care</h3>
+      <div class="trio">
+        <div class="stack">
+          <figure class="plate">
+            <img loading="lazy" src="images/net-trolley.jpg" width="1536" height="1024" alt="A green trolley stacked three high with white shade net rolls.">
+            <figcaption>Shade Net Trolley</figcaption>
+          </figure>
+          <h4>Shade net trolley</h4>
+          <p>Moves 13 rolls of 6 m net, enough for more than half a hectare of tunnels. Holds twice as many rolls of the 3 m net for Jr tunnels. Towed by vehicle or tractor.</p>
+        </div>
+        <div class="stack">
+          <figure class="plate">
+            <img loading="lazy" src="images/net-winder.jpg" width="1600" height="635" alt="Two operators winding a long white shade net onto a roll between two wheeled stands.">
+            <figcaption>Shade Net Winder · solar powered, weather protected</figcaption>
+          </figure>
+          <h4>Shade net winder</h4>
+          <p>Winds nets for reuse, manually or automated, with a tensioner that keeps rolls tight and crease-free. Nylon strips, noose buckles and a 4 mm wire rope finish each tunnel neatly.</p>
+        </div>
+        <div class="stack">
+          <figure class="plate">
+            <img loading="lazy" src="images/net-cleaner.jpg" width="1600" height="800" alt="A shade net roll being cranked through a long blue cleaning bath by two operators.">
+            <figcaption>Shade Net Cleaner</figcaption>
+          </figure>
+          <h4>Shade net cleaner</h4>
+          <p>Dirty white net blocks light and causes bolting. The 6 m roll is winched into the cleaning bath and cranked forward and back; a smaller cleaner without winches serves the 3 m net.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="platform" class="chapter" style="--phase:var(--brand)">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="tag">Platform · Coordination, federation, value flow</p>
+      <h2 class="holons-logo">
+        <img class="l" src="images/holons-logo.png" width="1200" height="278" alt="Holons">
+        <img class="d" src="images/holons-logo-dark.png" width="1200" height="278" alt="Holons">
+      </h2>
+      <p class="lede">The machines produce food. Holons organizes the people, tasks, needs and rewards around that production, from one farm plot up to a whole bioregion.</p>
+    </div>
+
+    <div class="cols">
+      <div class="stack-lg c7">
+        <div class="stack">
+          <h4>What a holon is</h4>
+          <div class="prose">
+            <p>A holon is something that is a whole in itself and also part of something bigger. A person is complete, but also belongs to groups, in the way a cell belongs to an organism. Nature repeats this pattern from particles through people and societies to galaxies. Holons uses it to design organizations, with a socio-economic system built around the needs of people and the planet as the larger aim.</p>
+            <p>Holons is a separate project, about ten years in the making, and the base layer the AgroSphere vision builds on. Think of it as an operating system for a community.</p>
+          </div>
+        </div>
+        <div class="stack">
+          <h4>Three failures it is built to fix</h4>
+          <ul class="ticks">
+            <li><strong>Invisible contribution.</strong> Work nobody sees, which leads to burnout.</li>
+            <li><strong>Coordination collapse.</strong> Group chats and spreadsheets stop keeping up.</li>
+            <li><strong>Capital leakage.</strong> Value flows out of the community to large corporations.</li>
+          </ul>
+        </div>
+      </div>
+      <figure class="hexmap c5">
+        <svg viewBox="-150 -132 300 264" role="img" aria-label="A large hexagon containing seven medium hexagons; the centre one contains seven small hexagons.">
+          <defs><polygon id="hx" points="0,-1 .866,-.5 .866,.5 0,1 -.866,.5 -.866,-.5" vector-effect="non-scaling-stroke"/></defs>
+          <use href="#hx" class="village" transform="translate(76.2 0) scale(44)"/>
+          <use href="#hx" class="village" transform="translate(38.1 66) scale(44)"/>
+          <use href="#hx" class="village" transform="translate(-38.1 66) scale(44)"/>
+          <use href="#hx" class="village" transform="translate(-76.2 0) scale(44)"/>
+          <use href="#hx" class="village" transform="translate(-38.1 -66) scale(44)"/>
+          <use href="#hx" class="village" transform="translate(38.1 -66) scale(44)"/>
+          <use href="#hx" class="village on" transform="scale(44)"/>
+          <use href="#hx" class="home on" transform="rotate(30) scale(13.5)"/>
+          <use href="#hx" class="home" transform="translate(20.3 11.7) rotate(30) scale(13.5)"/>
+          <use href="#hx" class="home" transform="translate(0 23.4) rotate(30) scale(13.5)"/>
+          <use href="#hx" class="home" transform="translate(-20.3 11.7) rotate(30) scale(13.5)"/>
+          <use href="#hx" class="home" transform="translate(-20.3 -11.7) rotate(30) scale(13.5)"/>
+          <use href="#hx" class="home" transform="translate(0 -23.4) rotate(30) scale(13.5)"/>
+          <use href="#hx" class="home" transform="translate(20.3 -11.7) rotate(30) scale(13.5)"/>
+          <use href="#hx" class="region" transform="rotate(30) scale(142)"/>
+        </svg>
+        <figcaption>Every hexagon is a holon · household inside village inside bioregion</figcaption>
+      </figure>
+    </div>
+
+    <div class="sub">
+      <span class="label">A living substrate</span>
+      <h3 class="display">Three connected functions</h3>
+      <div class="pillars">
+        <div>
+          <h4>Coordination</h4>
+          <p>Tracks who is doing what. Post a need or a task in a Telegram bot and it goes onto shared lists, a shared ledger and a dashboard.</p>
+          <p class="in"><b>In AgroSphere</b>Planning the tasks and dependencies of the field trial.</p>
+        </div>
+        <div>
+          <h4>Federation</h4>
+          <p>Groups connect while keeping their own identity and autonomy.</p>
+          <p class="in"><b>In AgroSphere</b>Farmer groups, machinery rings and community hubs linking up across sites.</p>
+        </div>
+        <div>
+          <h4>Irrigation</h4>
+          <p>Value flow. Moves resources and rewards fairly through the network.</p>
+          <p class="in"><b>In AgroSphere</b>Paying contributors to AgroSphere production and machines.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <span class="label">The map</span>
+      <h3 class="display">Fractal, from one square metre to a continent</h3>
+      <figure class="plate">
+        <img loading="lazy" src="images/holons-map.jpg" width="1592" height="628" alt="The Earth covered in a hexagonal grid. One large hexagon over Europe is highlighted, with a small network of linked holons inside it over Italy.">
+        <figcaption>The Holons map · one hexagon cell over Europe, with a network of holons inside it</figcaption>
+      </figure>
+      <div class="cols map-notes">
+        <div class="prose c6">
+          <p>On the map, every hexagon is a holon. Each one sits inside a larger hexagon and contains smaller ones, all the way up and all the way down: household, then village, then bioregion.</p>
+          <p>The same structure carries geospatial, sociocratic governance. Small units decide for themselves and pass decisions upward, which keeps authority local.</p>
+        </div>
+        <div class="prose c6">
+          <p>Not every holon is a place, and holons do not have to be neighbours. A community, a project or a machinery ring can be a holon too, and can federate with any other, anywhere. Neighbouring holons get one advantage: their parent and child relationships are already filled in.</p>
+          <p>The network is peer-to-peer, running on the open-source HoloSphere with no central server and no owned database. Data lives on relays, phones and small computers, and a peer that goes offline picks up what it missed when it reconnects.</p>
+        </div>
+      </div>
+
+      <h4 class="map-how">How the map works</h4>
+      <div class="links">
+        <div>
+          <h4>One address for every place</h4>
+          <p>The map uses H3, an open hexagonal grid with 16 resolutions. Any point on Earth falls into one cell at each resolution, and the same coordinates always give the same cell. Everyone working the same ground lands in the same holon.</p>
+        </div>
+        <div>
+          <h4>Parents and children come built in</h4>
+          <p>A neighbourhood holon's parent is a city holon; its children are block-level holons. Nobody has to draw up a tree of regions first.</p>
+        </div>
+        <div>
+          <h4>Regions roll up</h4>
+          <p>Ask one holon and you get its own data. Ask its parent and you get a roll-up across all its children: what a whole region needs, or how much its machines can produce.</p>
+        </div>
+        <div>
+          <h4>Neighbours can listen in</h4>
+          <p>Adjacent holons can subscribe to each other's lists without setting up each relationship by hand.</p>
+        </div>
+        <div>
+          <h4>A bulletin board in every hexagon</h4>
+          <p>A holon can pick a hexagon as its public bulletin board. What it publishes also lands in that cell, so anyone watching the region sees it without having to know the holon. This is stigmergy: people leave traces of needs and tasks, and others coordinate from them without contacting each other directly.</p>
+        </div>
+        <div>
+          <h4>Three ways to publish</h4>
+          <p>Send an item to one partner holon, drop it into a hexagon for everyone in that region, or broadcast it to every federated partner.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <span class="label">On a SHIFT farm</span>
+      <h3 class="display">How it connects to the machines</h3>
+      <div class="links">
+        <div>
+          <h4>Sharing machinery</h4>
+          <p>In a machinery ring, geographically grouped farms own or share the expensive equipment together. That cuts transport costs, keeps the machines working, and puts them within reach of small organic farmers. A small group of vegetable growers can federate their holon with a larger ring to borrow heavier equipment.</p>
+        </div>
+        <div>
+          <h4>Splitting rewards</h4>
+          <p>When a holon receives value, it flows down through cascading splitters. Each community chooses what it counts: tasks completed, appreciation or hours. Tokens can trickle down by hours worked or litres delivered and be redeemed for the product itself. In peer production, value flows back to whoever made each component.</p>
+        </div>
+        <div>
+          <h4>Credit, commitments and accounting</h4>
+          <p>Holons has a mutual credit system that can run without money. Planned next: commitment pooling within and across holons, resource-event-agent (REA) accounting, and a ledger for each federation. Every holon records its needs and its yields.</p>
+        </div>
+        <div>
+          <h4>Neighbourhood to bioregion</h4>
+          <p>Gatherings pass the best of each level upward, from household to bioregion: "we have machines to produce this much." When a holon lacks capacity, it draws on neighbouring holons for physical help, or on any holon anywhere for information.</p>
+        </div>
+        <div>
+          <h4>Community hubs</h4>
+          <p>One holon per city ward, built around a community café, with events at a fractal rhythm: ward, then cluster, then city. The aim is a demonstration holon with a tree nursery for a food forest and a farm-to-fork restaurant.</p>
+        </div>
+        <div>
+          <h4>Human practices</h4>
+          <p>Members commit to Deep Humanity workshops so that strangers can work well together, and consumers become prosumers. Holons also stores ready-made agreement templates, such as leases and permit requests.</p>
+        </div>
+        <div>
+          <h4>Prosumers</h4>
+          <p>Community members who are both consumers and contributors: operating the machinery, harvesting, and organising distribution.</p>
+        </div>
+        <div>
+          <h4>Micro bio-economies</h4>
+          <p>Machinery rings and community structures seed localized micro bio-economies: resilient local food systems, drawing on permaculture and agroforestry, that rely less on long supply chains.</p>
+        </div>
+        <div>
+          <h4>Exit to community</h4>
+          <p>The aim is for the technology to become an open-source toolkit, so that communities anywhere can build their own regenerative food systems.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub">
+      <span class="label">In use today</span>
+      <h3 class="display">AgroSphere's own working holon</h3>
+      <div class="cols">
+        <div class="prose c6">
+          <p>The current version, the Hubs Network, is the holon AgroSphere works in. It maps the dependencies of the SHIFT field trial, step by step.</p>
+          <p class="muted">AgroSphere leads with the farm. Holons is the infrastructure underneath, in the way the internet is infrastructure rather than a business in itself.</p>
+        </div>
+        <ol class="ops c6" style="grid-template-columns:minmax(0,1fr)">
+          <li>Choose the cultivar</li>
+          <li>Secure seedlings</li>
+          <li>Prepare the field</li>
+          <li>Program the PLC</li>
+          <li>Run the demonstration</li>
+        </ol>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer id="contact" class="contact">
+  <div class="wrap">
+    <p class="wordmark" aria-hidden="true">SHIFT</p>
+    <p class="expansion">Small Holding Integrated Farming Technologies</p>
+    <p class="lede">Bed, plant, protect and crop with one integrated set of machines. Ask us about a full SHIFT set, single machines, or a visit to the model farm. Or join or create a local holon and take part in a community-owned food system.</p>
+    <!-- Contact details: replace the four placeholder values below. -->
+    <dl class="details">
+      <div><dt>Address</dt><dd>[Your address]</dd></div>
+      <div><dt>Phone</dt><dd>[Your phone]</dd></div>
+      <div><dt>Email</dt><dd>[Your email]</dd></div>
+      <div><dt>Web</dt><dd>[Your website]</dd></div>
+    </dl>
+    <div class="fine">
+      <span>AgroSphere Technologies · <a href="http://agrosphere.net">agrosphere.net</a></span>
+      <span>Specifications may change without notice. Images are AI-generated design visualizations based on the original drawings.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var links = document.querySelectorAll('.site-nav a');
+  if (!('IntersectionObserver' in window) || !links.length) return;
+  var byId = {};
+  links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      links.forEach(function (a) { a.removeAttribute('aria-current'); });
+      var a = byId[e.target.id];
+      if (a) a.setAttribute('aria-current', 'true');
+    });
+  }, { rootMargin: '-45% 0px -50% 0px' });
+  Object.keys(byId).forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el) io.observe(el);
+  });
+})();
+</script>
+</body>
+</html>

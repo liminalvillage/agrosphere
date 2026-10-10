@@ -1,0 +1,4 @@
+.DS_Store
+.netlify/
+# source catalogue stays local (32 MB)
+*.pdf
