@@ -88,9 +88,11 @@ h4 { font-family: var(--display); font-stretch: 75%; font-weight: 800; font-size
 .site-nav a:hover, .site-nav a[aria-current="true"] { color: var(--ink); border-bottom-color: var(--brand); }
 
 /* hero */
-.hero { padding-block: clamp(2rem, 5vw, 4rem) 0; }
+.hero { position: relative; isolation: isolate; overflow: hidden; display: grid; align-items: end; padding-block: clamp(2rem, 5vw, 4rem) 0; background: #101710; color: #f4f3ec; }
+.hero-video { position: absolute; inset: 0; z-index: -2; width: 100%; height: 100%; object-fit: cover; filter: saturate(.7); }
+.hero::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(to top, rgb(10 16 10 / .92), rgb(10 16 10 / .72) 55%, rgb(10 16 10 / .62)); }
 .hero-top { display: grid; grid-template-columns: auto minmax(0, 1fr); align-items: end; gap: clamp(1.25rem, 4vw, 3.5rem); }
-.wordmark { font-family: var(--display); font-stretch: 62%; font-weight: 900; font-size: clamp(6.5rem, 25vw, 19rem); line-height: .78; letter-spacing: -.02em; color: var(--brand); margin-left: -.04em; }
+.wordmark { font-family: var(--display); font-stretch: 62%; font-weight: 900; font-size: clamp(6.5rem, 25vw, 19rem); line-height: .78; letter-spacing: -.02em; color: inherit; margin-left: -.04em; }
 .hero-copy { display: grid; gap: 1rem; padding-bottom: .5rem; min-width: 0; }
 .hero-copy .expansion { font-family: var(--display); font-stretch: 70%; font-weight: 800; font-size: clamp(1.35rem, 2.6vw, 2.1rem); text-transform: uppercase; line-height: 1.02; max-width: 14ch; }
 .hero-copy p { max-width: 44ch; }
@@ -243,6 +245,7 @@ section { padding-block: var(--section); scroll-margin-top: 3.5rem; }
 <main id="top">
 
 <div class="hero">
+  <video class="hero-video" src="video/hero.mp4" poster="images/hero-poster.jpg" muted loop playsinline preload="metadata" aria-hidden="true" tabindex="-1"></video>
   <div class="wrap">
     <div class="hero-top">
       <h1 class="wordmark">SHIFT</h1>
@@ -864,6 +867,11 @@ section { padding-block: var(--section); scroll-margin-top: 3.5rem; }
 </footer>
 
 <script>
+(function () {
+  var video = document.querySelector('.hero-video');
+  if (!video || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  video.play().catch(function () {});
+})();
 (function () {
   var links = document.querySelectorAll('.site-nav a');
   if (!('IntersectionObserver' in window) || !links.length) return;
